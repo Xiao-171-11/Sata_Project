@@ -1,0 +1,30 @@
+# ============================================================
+#  Sata_Project / Seekfree_TC264_Opensource_Library  .gitignore
+#  只提交源码与工程配置，编译产物一律不入库
+# ============================================================
+
+# ---- AURIX Development Studio (Eclipse CDT) 编译输出 ----
+Debug/
+Release/
+*.o
+*.d
+*.src
+*.elf
+*.hex
+*.map
+*.mdf
+*.opt
+*.abs
+*.out
+
+# ---- Eclipse / ADS 工作区临时文件 ----
+.metadata/
+.qtc_clangd/
+*.launch
+*.bak
+*.swp
+
+# ---- 其他临时文件 ----
+Thumbs.db
+desktop.ini
+.DS_Store
