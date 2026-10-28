@@ -115,10 +115,10 @@ base_speed = CONTROL_BASE_SPEED · slow
 
 | 参数 | 位置 | 现值 | 含义 |
 |---|---|---|---|
-| `CONTROL_BASE_SPEED` | `code/Control_REMAIN.h` | `99.25f` | 基础速度（编码器 脉冲/5ms） |
-| `CONTROL_DUTY_BASE` | `code/Control_REMAIN.h` | `794` | 跑到基础速度的前馈占空比 |
-| `CONTROL_SPEED_MAX` / `MIN` | `code/Control_REMAIN.h` | `148.875f` / `29.775f` | 差速后内外轮限幅 |
-| `CONTROL_PID_OUT_MAX` | `code/Control_REMAIN.h` | `661.5f` | 速度环修正量限幅 |
+| `CONTROL_BASE_SPEED` | `code/Control_REMAIN.h` | `104.2125f` | 基础速度（编码器 脉冲/5ms） |
+| `CONTROL_DUTY_BASE` | `code/Control_REMAIN.h` | `834` | 跑到基础速度的前馈占空比（增益 ≈ 8.0） |
+| `CONTROL_SPEED_MAX` / `MIN` | `code/Control_REMAIN.h` | `156.31875f` / `31.26375f` | 差速后内外轮限幅（= 基础 ×1.5 / ×0.3） |
+| `CONTROL_PID_OUT_MAX` | `code/Control_REMAIN.h` | `694.575f` | 速度环修正量限幅 |
 | `CONTROL_CURVE_SLOW_K` | `code/Control_REMAIN.h` | `0.0080f` | 弯道降速斜率 |
 | `CONTROL_DIFF_K` | `code/Control_REMAIN.h` | `0.0040f` | 差速比例（每像素） |
 | `CONTROL_STRAIGHT_STEER_SCALE` | `code/Control_REMAIN.h` | `0.9025f` | 直道打角折扣 |
@@ -142,9 +142,13 @@ base_speed = CONTROL_BASE_SPEED · slow
 
 ## 7. 版本
 
-当前 **V4.6 / 2026-10-26**（见 `code/SATA_MAIN.h` 顶部注释块，含每次改动的原因与还原方法）：
-加权中线判定法（移除逆透视 + 纯追踪）、十字路口五特征打分、丢线三层兜底、
-舵机按中线形状/置信度动态缩放、直道打角 ×0.9025、电机 BASE 99.25 / DUTY 794。
+当前 **V4.7 / 2026-10-28**（见 `code/SATA_MAIN.h` 顶部注释块，含每次改动的原因与还原方法）：
+
+* **V4.7**：电机输出整体 **+5%** —— `CONTROL_BASE_SPEED` 99.25 → 104.2125、`CONTROL_DUTY_BASE` 794 → 834、
+  限幅 `SPEED_MAX/MIN` 与 `PID_OUT_MAX` 同比例，超速看门狗与堵转检测门限同步放宽（前馈增益保持 ≈8.0 不变，
+  所以是"目标速度 +5%、前馈占空比 +5%"，控制结构没有改动）。
+* **V4.6**：加权中线判定法（移除逆透视 + 纯追踪）、十字路口五特征打分、丢线三层兜底、
+  舵机按中线形状/置信度动态缩放、直道打角 ×0.9025、电机 BASE 99.25 / DUTY 794。
 
 ---
 
